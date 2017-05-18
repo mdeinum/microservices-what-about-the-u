@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>YOS</title>
+    <link rel="stylesheet" type="text/css" th:href="@{webjars/Semantic-UI/semantic.css}" />
+</head>
+<body>
+
+<div class="ui inverted menu">
+    <div class="header item">Ye Olde Shope</div>
+    <a class="item" th:href="@{/customers}">Customers</a>
+    <a class="item" th:href="@{/orders}">Orders</a>
+</div>
+
+<H1>Welcome at Ye Olde Shop</H1>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/Semantic-UI/semantic.css}" />
+</head>
+<body>
+
+<div class="ui inverted menu">
+    <div class="header item">Ye Olde Shope</div>
+    <a class="item" th:href="@{/customers}">Customers</a>
+    <a class="active item" th:href="@{/orders}">Orders</a>
+</div>
+
+<div id="container" class="ui container">
+    <h1>Orders</h1>
+    <table class="ui yellow striped table">
+        <thead>
+        <tr>
+            <th>Number</th>
+            <th>Order Date</th>
+            <th>Delivery Date</th>
+            <th># Items</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td><a href="#" th:href="@{/orders/{id}(id=${order.id})}" th:text="${order.orderNumber}">fullname</a></td>
+            <td th:text="${#temporals.format(order.orderDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${order.deliveryDate != null} ? ${#temporals.format(order.deliveryDate, 'dd-MM-yyyy')}"></td>
+            <td class="right aligned" th:text="${order.totalNumberOfItems}"></td>
+            <td class="right aligned" th:text="${order.totalOrderPrice}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

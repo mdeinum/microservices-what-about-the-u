@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Customer</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/Semantic-UI/semantic.css}"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+</head>
+<body>
+
+<div class="ui inverted menu">
+    <div class="header item">Ye Olde Shope</div>
+    <a class="active item" th:href="@{/customers}">Customers</a>
+    <a class="item" th:href="@{/orders}">Orders</a>
+</div>
+
+<div id="container" class="ui page grid">
+    <h1>Customer</h1>
+    <div class="row">
+        <div class="four wide column"><strong>Firstname</strong></div>
+        <div class="four wide column" th:text="${customer.firstName}"></div>
+        <div class="four wide column"><strong>Lastname</strong></div>
+        <div class="four wide column" th:text="${customer.lastName}"></div>
+    </div>
+    <div class="row">
+        <div class="four wide column"><strong>Address</strong></div>
+        <div class="four wide column" th:text="${customer.address.street} + ' ' + ${customer.address.houseNumber}"></div>
+        <div class="four wide column"><strong>Date of Birth</strong></div>
+        <div class="four wide column" th:text="${#temporals.format(customer.dateOfBirth, 'dd-MM-yyyy')}"></div>
+    </div>
+    <div class="row">
+
+        <div class="four wide column">&nbsp;</div>
+        <div class="four wide column" th:text="${customer.address.postalCode} + ' ' + ${customer.address.city}"></div>
+        <div class="four wide column"><strong>Username</strong></div>
+        <div class="four wide column" th:text="${customer.username}"></div>
+    </div>
+    <div class="row">
+        <div class="four wide column">&nbsp;</div>
+        <div class="four wide column" th:text="${customer.address.country}"></div>
+        <div class="four wide column"><strong>Email</strong></div>
+        <div class="four wide column" th:text="${customer.emailAddress}"></div>
+    </div>
+    <div class="row" id="orders">
+        <a href="#" th:href="@{/orders(customerId=${customer.id})}" class="inline">Orders by Customer</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var url = $('a[class=inline]').attr('href');
+        $('#orders').load(url + " #container");
+    });
+</script>
+
+</body>
+</html>

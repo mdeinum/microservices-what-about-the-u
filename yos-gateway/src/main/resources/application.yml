@@ -1,0 +1,15 @@
+info:
+  component: YOS Zuul Gateway
+
+spring:
+  application:
+    name: yos-gateway
+
+zuul:
+  routes:
+    customers:
+      path: /customers/**
+      url: http://localhost:8081/
+    orders:
+      path: /orders/**
+      url: http://localhost:8082/

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Customers</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/Semantic-UI/semantic.css}" />
+</head>
+<body>
+
+<div class="ui inverted menu">
+    <div class="header item">Ye Olde Shope</div>
+    <a class="active item" th:href="@{/customers}">Customers</a>
+    <a class="item" th:href="@{/orders}">Orders</a>
+</div>
+
+<div id="container" class="ui container">
+    <h1>Customers</h1>
+    <table class="ui striped table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>DOB</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="customer : ${customers}">
+                <td><a href="#" th:href="@{/customers/{id}(id=${customer.id})}" th:text="${customer.fullName}">fullname</a></td>
+                <td th:text="${customer.username}"></td>
+                <td th:text="${customer.emailAddress}"></td>
+                <td th:text="${#temporals.format(customer.dateOfBirth, 'dd-MM-yyyy')}"></td>
+                <td th:text="${customer.country}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

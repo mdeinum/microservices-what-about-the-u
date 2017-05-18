@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="'Order ' + ${order.orderNumber}">Order 87654</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/Semantic-UI/semantic.css}" />
+</head>
+<body>
+<div class="ui inverted menu">
+    <div class="header item">Ye Olde Shope</div>
+    <a class="item" th:href="@{/customers}">Customers</a>
+    <a class="active item" th:href="@{/orders}">Orders</a>
+</div>
+
+<div id="container" class="ui page grid">
+    <h1>Order: <span th:text="${order.orderNumber}">number</span></h1>
+    <div class="row">
+        <div class="four wide column"><strong>Orderdate</strong></div>
+        <div class="four wide column" th:text="${#temporals.format(order.orderDate, 'dd-MM-yyyy')}"></div>
+        <div class="four wide column"><strong>Delivery Date</strong></div>
+        <div class="four wide column" th:if="${order.deliveryDate != null}" th:text="${#temporals.format(order.deliveryDate, 'dd-MM-yyyy')}"></div>
+    </div>
+    <div class="row">
+        <div class="four wide column"><strong>Shipping Address</strong></div>
+        <div class="four wide column" th:text="${order.shippingAddress.street} + ' ' + ${order.shippingAddress.houseNumber}"></div>
+        <div class="four wide column"><strong>Billing Address</strong></div>
+        <div class="four wide column" th:text="${order.billingAddress.street} + ' ' + ${order.billingAddress.houseNumber}"></div>
+    </div>
+    <div class="row">
+        <div class="four wide column">&nbsp;</div>
+        <div class="four wide column" th:text="${order.shippingAddress.postalCode} + ' ' + ${order.shippingAddress.city}"></div>
+        <div class="four wide column"><strong>&nbsp;</strong></div>
+        <div class="four wide column" th:text="${order.billingAddress.postalCode} + ' ' + ${order.billingAddress.city}"></div>
+    </div>
+    <div class="row">
+        <div class="four wide column">&nbsp;</div>
+        <div class="four wide column" th:text="${order.shippingAddress.country}"></div>
+        <div class="four wide column">&nbsp;</div>
+        <div class="four wide column" th:text="${order.billingAddress.country}"></div>
+    </div>
+    <div class="row" id="order-details">
+        <table class="ui yellow striped table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="detail : ${order.orderDetails}">
+                    <td th:text="${detail.description}">description</td>
+                    <td class="right aligned" th:text="${detail.quantity}">2</td>
+                    <td class="right aligned" th:text="${detail.price}">1.00</td>
+                    <td class="right aligned" th:text="${detail.totalPrice}">2.00</td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3"><strong>Order total</strong></td>
+                <td class="right aligned warning" th:text="${order.totalOrderPrice}"></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</body>
+</html>
